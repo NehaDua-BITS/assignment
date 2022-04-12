@@ -2,6 +2,7 @@ package com.intuit.profilevalidationsystem.model;
 
 import com.intuit.profilevalidationsystem.constants.TaxIdentifierType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,13 +15,15 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Embeddable
 public class TaxIdentifier {
 
     @Enumerated(EnumType.STRING)
-    private final TaxIdentifierType type;
+    private TaxIdentifierType type;
 
     private String value;
+
 
     public TaxIdentifier(TaxIdentifierType type) {
         this(type, null);

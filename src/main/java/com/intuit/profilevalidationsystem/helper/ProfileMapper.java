@@ -4,10 +4,6 @@ import com.intuit.profilevalidationsystem.dto.AddressDTO;
 import com.intuit.profilevalidationsystem.dto.ProfileDTO;
 import com.intuit.profilevalidationsystem.model.Address;
 import com.intuit.profilevalidationsystem.model.Profile;
-import com.intuit.profilevalidationsystem.model.TaxIdentifier;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProfileMapper {
 
@@ -16,8 +12,7 @@ public class ProfileMapper {
         profile.setLegalName(profileDTO.getLegalName());
         profile.setWebsite(profileDTO.getWebsite());
         profile.setEmail(profileDTO.getEmail());
-        List<TaxIdentifier> identifierList = new ArrayList<>();
-        profile.setTaxIdentifiers(profileDTO.getTaxIdentifiers());
+        profile.setTaxIdentifiersString(profileDTO.getTaxIdentifiers());
         return profile;
     }
 

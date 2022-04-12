@@ -6,6 +6,7 @@ import com.intuit.profilevalidationsystem.constants.SubscriptionFrequency;
 import com.intuit.profilevalidationsystem.helper.SubscriptionHelper;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -18,15 +19,22 @@ import java.util.UUID;
 public class Subscription {
 
     @Id
+    @Column(name = "subscription_id")
+    @Type(type = "uuid-char")
     private UUID subscriptionId;
 
+    @Column(name = "profile_id")
+    @Type(type = "uuid-char")
     private UUID profileId;
 
+    @Column(name = "start_date")
     private Date startDate;
 
+    @Column(name = "end_date")
     private Date endDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "product_type")
     private ProductType productType;
 
     @Enumerated(EnumType.STRING)

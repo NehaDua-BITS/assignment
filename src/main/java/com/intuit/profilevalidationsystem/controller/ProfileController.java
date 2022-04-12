@@ -16,7 +16,7 @@ public interface ProfileController {
     ResponseEntity healthCheck();
 
     @ApiOperation("Create Profile")
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Profile> createProfile(@RequestBody ProfileDTO profileDTO);
 
     @ApiOperation("Submit Update Profile request")

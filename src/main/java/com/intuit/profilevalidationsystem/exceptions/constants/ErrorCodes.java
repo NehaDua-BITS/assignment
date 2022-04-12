@@ -9,6 +9,7 @@ public enum ErrorCodes {
     INVALID_INPUT(400, "PV.4001", "Invalid Input : %s"),
     OPERATION_NOT_SUPPORTED(400, "PV.4002", "Unsupported operation"),
     INVALID_SUBSCRIPTION_FREQUENCY(400, "PV.4003", "Subscription frequency not supported"),
+    ADDRESS_NULL(400, "PV.4004", "Address is null"),
 
 
     //500 series

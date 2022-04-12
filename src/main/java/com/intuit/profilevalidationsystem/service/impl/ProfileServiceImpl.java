@@ -23,6 +23,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     private final Producer producer;
 
+    @Autowired
     private ProfileRepository profileRepository;
 
     @Autowired
