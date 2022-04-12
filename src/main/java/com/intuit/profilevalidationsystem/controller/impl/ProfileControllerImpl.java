@@ -3,7 +3,7 @@ package com.intuit.profilevalidationsystem.controller.impl;
 import com.intuit.profilevalidationsystem.controller.ProfileController;
 import com.intuit.profilevalidationsystem.dto.ProfileDTO;
 import com.intuit.profilevalidationsystem.helper.Validator;
-import com.intuit.profilevalidationsystem.model.BusinessProfile;
+import com.intuit.profilevalidationsystem.model.Profile;
 import com.intuit.profilevalidationsystem.service.impl.ProfileServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +36,11 @@ public class ProfileControllerImpl implements ProfileController {
     }
 
     @Override
-    public ResponseEntity<ProfileDTO> createProfile(ProfileDTO profileDTO) {
+    public ResponseEntity<Profile> createProfile(ProfileDTO profileDTO) {
         log.info("Create profile request received : " + profileDTO);
         Validator.validateCreateProfileRequest(profileDTO);
-        ProfileDTO responseDTO = profileService.createProfile(profileDTO);
-        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
+        Profile response = profileService.createProfile(profileDTO);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     /**
@@ -63,7 +63,7 @@ public class ProfileControllerImpl implements ProfileController {
      * @return
      */
     @Override
-    public ResponseEntity<BusinessProfile> getProfileById(UUID profileId) {
+    public ResponseEntity<Profile> getProfileById(UUID profileId) {
         //return new ResponseEntity<>(accountService.getAccountById(accountId.toString()), HttpStatus.OK);
         return null;
     }

@@ -4,7 +4,7 @@ import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
 
 public class NotSupportedException extends ValidationSystemException {
 
-    public NotSupportedException(String message) {
-        super(ErrorCodes.OPERATION_NOT_SUPPORTED);
+    public NotSupportedException(ErrorCodes errorCode, Object... args) {
+        super(errorCode, args);
     }
 }

@@ -1,10 +1,13 @@
 package com.intuit.profilevalidationsystem.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.intuit.profilevalidationsystem.dao.ProfileRepository;
 import com.intuit.profilevalidationsystem.dto.ProfileDTO;
 import com.intuit.profilevalidationsystem.exceptions.SubmitRequestException;
 import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
+import com.intuit.profilevalidationsystem.helper.ProfileMapper;
 import com.intuit.profilevalidationsystem.kafka.Producer;
+import com.intuit.profilevalidationsystem.model.Profile;
 import com.intuit.profilevalidationsystem.service.ProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +23,19 @@ public class ProfileServiceImpl implements ProfileService {
 
     private final Producer producer;
 
+    private ProfileRepository profileRepository;
+
     @Autowired
-    public ProfileServiceImpl(EventServiceImpl eventService, Producer producer) {
+    public ProfileServiceImpl(EventServiceImpl eventService, Producer producer, ProfileRepository profileRepository) {
         this.eventService = eventService;
         this.producer = producer;
     }
 
     @Override
-    public ProfileDTO createProfile(ProfileDTO profileDTO) {
+    public Profile createProfile(ProfileDTO profileDTO) {
         log.info("Creating profile");
-        //todo: save in DB
-        return profileDTO;
+        Profile profile = profileRepository.save(ProfileMapper.mapProfileDTO(profileDTO));
+        return profile;
     }
 
     public void submitUpdateRequest(UUID profileId, ProfileDTO profileDTO, String source) {

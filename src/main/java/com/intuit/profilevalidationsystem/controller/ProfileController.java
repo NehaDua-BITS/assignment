@@ -1,7 +1,7 @@
 package com.intuit.profilevalidationsystem.controller;
 
 import com.intuit.profilevalidationsystem.dto.ProfileDTO;
-import com.intuit.profilevalidationsystem.model.BusinessProfile;
+import com.intuit.profilevalidationsystem.model.Profile;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public interface ProfileController {
 
     @ApiOperation("Create Profile")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO);
+    ResponseEntity<Profile> createProfile(@RequestBody ProfileDTO profileDTO);
 
     @ApiOperation("Submit Update Profile request")
     @PostMapping(path = "{id}/submit", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,7 +26,7 @@ public interface ProfileController {
 
     @ApiOperation("Get Profile by customer Id")
     @GetMapping(value = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<BusinessProfile> getProfileById(@PathVariable("id") UUID profileId);
+    ResponseEntity<Profile> getProfileById(@PathVariable("id") UUID profileId);
 
     @ApiOperation("Update Profile")
     @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -17,7 +17,6 @@ public class EventServiceImpl {
 
     public String prepareEvent(UUID profileId, ProfileDTO profileDTO, String source) throws JsonProcessingException {
         UpdateEvent updateEvent = new UpdateEvent(profileId.toString(), profileDTO, EventType.UPDATE_PROFILE);
-        updateEvent.setRequestId(MDC.get(REQUEST_ID));
         updateEvent.setSource(source);
         return Mapper.toJson(updateEvent);
     }
