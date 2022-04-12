@@ -2,7 +2,9 @@ kafka:
   producer:
     topic: update-requests
   consumer:
-    topic: update-requests
+    topic:
+      request: update-requests
+      response: update-responses
 
 spring:
   kafka:

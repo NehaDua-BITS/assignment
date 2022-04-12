@@ -28,4 +28,8 @@ public class ValidationSystemException extends RuntimeException {
     public ValidationSystemException(ErrorCodes errorCodes, Object... args) {
         this(errorCodes.getStatus(), errorCodes.getCode(), String.format(errorCodes.getMessage(), args));
     }
+
+    public ValidationSystemException(String message) {
+        this(500, "500", message);
+    }
 }

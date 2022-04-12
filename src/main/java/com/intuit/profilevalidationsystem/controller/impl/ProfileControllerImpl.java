@@ -75,8 +75,9 @@ public class ProfileControllerImpl implements ProfileController {
      * @return
      */
     @Override
-    public ResponseEntity<ProfileDTO> updateProfile(UUID profileId, ProfileDTO profileDTO) {
-        return null;
+    public ResponseEntity<Profile> updateProfile(UUID profileId, ProfileDTO profileDTO) {
+        Profile profile = profileService.updateProfile(profileId, profileDTO);
+        return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 
 }

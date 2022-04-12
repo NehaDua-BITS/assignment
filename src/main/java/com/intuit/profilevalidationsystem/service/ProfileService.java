@@ -11,6 +11,6 @@ public interface ProfileService {
 
     void submitUpdateRequest(UUID profileId, ProfileDTO profileDTO, String source);
 
-    void updateProfile(UUID profileId, ProfileDTO profileDTO);
+    Profile updateProfile(UUID profileId, ProfileDTO profileDTO);
 
 }

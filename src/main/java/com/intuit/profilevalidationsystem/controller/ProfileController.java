@@ -30,6 +30,6 @@ public interface ProfileController {
 
     @ApiOperation("Update Profile")
     @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ProfileDTO> updateProfile(@PathVariable("id") UUID profileId, @RequestBody ProfileDTO profileDTO);
+    ResponseEntity<Profile> updateProfile(@PathVariable("id") UUID profileId, @RequestBody ProfileDTO profileDTO);
 
 }

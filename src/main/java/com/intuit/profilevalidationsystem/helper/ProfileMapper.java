@@ -12,7 +12,7 @@ public class ProfileMapper {
         profile.setLegalName(profileDTO.getLegalName());
         profile.setWebsite(profileDTO.getWebsite());
         profile.setEmail(profileDTO.getEmail());
-        profile.setTaxIdentifiersString(profileDTO.getTaxIdentifiers());
+        profile.setTaxIdentifiers(profileDTO.getTaxIdentifiers());
         return profile;
     }
 
@@ -27,5 +27,30 @@ public class ProfileMapper {
                 .build();
 
         return address;
+    }
+
+    public static Profile mapDTOtoModel(ProfileDTO profileDTO, Profile profile) {
+        if (profileDTO.getName() != null) {
+            profile.setName(profileDTO.getName());
+        }
+        if (profileDTO.getEmail() != null) {
+            profile.setEmail(profileDTO.getEmail());
+        }
+        if (profileDTO.getLegalName() != null) {
+            profile.setLegalName(profileDTO.getLegalName());
+        }
+
+        if (profileDTO.getAddress() != null) {
+            profile.setAddress(mapAddressDTO(profileDTO.getAddress()));
+        }
+
+        if (profileDTO.getWebsite() != null) {
+            profile.setWebsite(profileDTO.getWebsite());
+        }
+
+        if(profileDTO.getTaxIdentifiers() != null) {
+            profile.setTaxIdentifiers(profileDTO.getTaxIdentifiers());
+        }
+        return profile;
     }
 }

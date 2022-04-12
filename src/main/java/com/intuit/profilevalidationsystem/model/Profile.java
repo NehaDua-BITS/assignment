@@ -82,23 +82,8 @@ public class Profile {
         this.address = address.toString();
     }
 
-    /**
-     * Adds the tax identifier if does not exist
-     * else updates the current value
-     * @param type
-     * @param value
-     */
-    public void addTaxIdentifier(TaxIdentifierType type, String value) {
-        Optional<TaxIdentifier> taxIdentifierOptional = taxIdentifiersList.stream().filter(t -> t.getType() == type).findFirst();
-        if (!taxIdentifierOptional.isPresent()) { //add new identifier
-            this.taxIdentifiersList.add(new TaxIdentifier(type, value));
-        } else {
-            taxIdentifierOptional.get().setValue(value); //update value of existing identifier
-        }
-        setTaxIdentifiersString(this.taxIdentifiersList);
-    }
-
-    public void setTaxIdentifiersString(List<TaxIdentifier> taxIdentifiersList) {
+    public void setTaxIdentifiers(List<TaxIdentifier> taxIdentifiersList) {
+        this.taxIdentifiersList = taxIdentifiersList;
         if (taxIdentifiersList != null) {
             taxIdentifiers = Arrays.toString(taxIdentifiersList.toArray());
         }

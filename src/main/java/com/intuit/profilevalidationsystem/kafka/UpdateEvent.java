@@ -31,6 +31,10 @@ public class UpdateEvent extends Event {
     @NotNull(message = "Update source cannot be null")
     private String source;
 
+    public UpdateEvent() {
+        super();
+    }
+
     public UpdateEvent(String userId, ProfileDTO profileDTO, EventType eventType) {
         super(eventType);
         this.userId = userId;

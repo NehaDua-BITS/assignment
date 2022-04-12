@@ -17,9 +17,16 @@ public class Consumer {
         this.validationService = validationService;
     }
 
-    @KafkaListener(topics = {"#{'${kafka.consumer.topic}'}"})
-    public void consume(String message) {
-        log.info(String.format("#### -> Consumed message -> %s", message));
-        validationService.validate(message);
+    @KafkaListener(topics = {"#{'${kafka.consumer.topic.request}'}"})
+    public void consumeUpdateRequest(String message) {
+        log.info(String.format("#### -> Consumed request message -> %s", message));
+        validationService.consumeRequest(message);
     }
+
+    @KafkaListener(topics = {"#{'${kafka.consumer.topic.response}'}"})
+    public void consumeUpdateValidationResponse(String message) {
+        log.info(String.format("#### -> Consumed response message -> %s", message));
+        validationService.consumeResponse(message);
+    }
+
 }

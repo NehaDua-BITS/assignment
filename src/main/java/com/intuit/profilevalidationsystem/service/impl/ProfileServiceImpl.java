@@ -3,6 +3,7 @@ package com.intuit.profilevalidationsystem.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.intuit.profilevalidationsystem.dao.ProfileRepository;
 import com.intuit.profilevalidationsystem.dto.ProfileDTO;
+import com.intuit.profilevalidationsystem.exceptions.RepositoryException;
 import com.intuit.profilevalidationsystem.exceptions.SubmitRequestException;
 import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
 import com.intuit.profilevalidationsystem.helper.ProfileMapper;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -51,8 +53,15 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void updateProfile(UUID profileId, ProfileDTO profileDTO) {
+    public Profile updateProfile(UUID profileId, ProfileDTO profileDTO) {
         log.info("Updating profile");
+        Optional<Profile> optional = profileRepository.findById(profileId);
+        if (!optional.isPresent()) {
+            throw new RepositoryException(ErrorCodes.PROFILE_NOT_FOUND, profileId);
+        }
+        Profile profile = optional.get();
+        profile = ProfileMapper.mapDTOtoModel(profileDTO, profile);
+        return profileRepository.save(profile);
     }
 
 }
