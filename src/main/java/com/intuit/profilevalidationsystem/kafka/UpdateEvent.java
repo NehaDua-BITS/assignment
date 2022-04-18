@@ -36,11 +36,11 @@ public class UpdateEvent extends Event {
     }
 
     public UpdateEvent(String userId, ProfileDTO profileDTO, EventType eventType) {
-        super(eventType);
         this.userId = userId;
         this.profileDTO = profileDTO;
         this.eventType = eventType;
         this.updateTime = ZonedDateTime.now();
+        this.eventType = eventType;
     }
 
 }

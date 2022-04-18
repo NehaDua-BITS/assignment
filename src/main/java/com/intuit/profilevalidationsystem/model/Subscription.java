@@ -5,6 +5,7 @@ import com.intuit.profilevalidationsystem.constants.Status;
 import com.intuit.profilevalidationsystem.constants.SubscriptionFrequency;
 import com.intuit.profilevalidationsystem.helper.SubscriptionHelper;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @ToString
+@NoArgsConstructor
 @Table(name = "subscriptions")
 public class Subscription {
 

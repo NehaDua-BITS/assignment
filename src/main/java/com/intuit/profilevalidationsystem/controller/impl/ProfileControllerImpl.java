@@ -2,6 +2,7 @@ package com.intuit.profilevalidationsystem.controller.impl;
 
 import com.intuit.profilevalidationsystem.controller.ProfileController;
 import com.intuit.profilevalidationsystem.dto.ProfileDTO;
+import com.intuit.profilevalidationsystem.dto.response.SubmitResponseDTO;
 import com.intuit.profilevalidationsystem.helper.Validator;
 import com.intuit.profilevalidationsystem.model.Profile;
 import com.intuit.profilevalidationsystem.service.impl.ProfileServiceImpl;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("/api/profile")
 @Slf4j
 public class ProfileControllerImpl implements ProfileController {
 
@@ -27,14 +28,10 @@ public class ProfileControllerImpl implements ProfileController {
     }
 
     /**
-     * To check health of the controller
+     * To create profile
+     * @param profileDTO
      * @return
      */
-    @Override
-    public ResponseEntity healthCheck() {
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
     @Override
     public ResponseEntity<Profile> createProfile(ProfileDTO profileDTO) {
         log.info("Create profile request received : " + profileDTO);
@@ -50,11 +47,11 @@ public class ProfileControllerImpl implements ProfileController {
      * @return
      */
     @Override
-    public ResponseEntity<ProfileDTO> acceptUpdateRequest(UUID profileId, ProfileDTO profileDTO, String source) {
+    public ResponseEntity<SubmitResponseDTO> acceptUpdateRequest(UUID profileId, ProfileDTO profileDTO, String source) {
         log.info("Update request received : " + profileDTO);
         Validator.validateUpdateProfileRequest(profileDTO, source);
-        profileService.submitUpdateRequest(profileId, profileDTO, source);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        String requestId = profileService.submitUpdateRequest(profileId, profileDTO, source);
+        return new ResponseEntity<>(new SubmitResponseDTO(requestId), HttpStatus.ACCEPTED);
     }
 
     /**
@@ -64,8 +61,7 @@ public class ProfileControllerImpl implements ProfileController {
      */
     @Override
     public ResponseEntity<Profile> getProfileById(UUID profileId) {
-        //return new ResponseEntity<>(accountService.getAccountById(accountId.toString()), HttpStatus.OK);
-        return null;
+        return new ResponseEntity<>(profileService.getProfile(profileId), HttpStatus.OK);
     }
 
     /**

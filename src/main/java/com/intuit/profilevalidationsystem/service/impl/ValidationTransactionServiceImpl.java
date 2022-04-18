@@ -1,20 +1,20 @@
 package com.intuit.profilevalidationsystem.service.impl;
 
-import com.intuit.profilevalidationsystem.constants.ProductType;
-import com.intuit.profilevalidationsystem.constants.ValidationStatus;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.intuit.profilevalidationsystem.constants.UpdateStatus;
 import com.intuit.profilevalidationsystem.dao.UpdateTransactionRepository;
 import com.intuit.profilevalidationsystem.dao.ValidationTransactionRepository;
-import com.intuit.profilevalidationsystem.exceptions.RepositoryException;
 import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
+import com.intuit.profilevalidationsystem.exceptions.types.RepositoryException;
+import com.intuit.profilevalidationsystem.helper.Mapper;
 import com.intuit.profilevalidationsystem.kafka.UpdateEvent;
 import com.intuit.profilevalidationsystem.model.UpdateTransaction;
-import com.intuit.profilevalidationsystem.model.UpdateValidationTransaction;
 import com.intuit.profilevalidationsystem.service.ValidationTransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,14 +34,15 @@ public class ValidationTransactionServiceImpl implements ValidationTransactionSe
     }
 
     @Override
-    public void addUpdateTransactionEntry(UUID profileId, UpdateEvent event) {
+    public void addUpdateTransactionEntry(UUID profileId, UpdateEvent event) throws JsonProcessingException {
 
         UpdateTransaction updateTransaction = new UpdateTransaction();
         updateTransaction.setProfileId(profileId);
         updateTransaction.setUpdateTransactionId(UUID.fromString(event.getRequestId()));
-        updateTransaction.setEvent(event);
-        updateTransaction.setStatus(ValidationStatus.IN_PROGRESS);
-        updateTransaction.setCreateTimestamp(Date.from(event.getUpdateTime().toInstant()));
+        updateTransaction.setStatus(UpdateStatus.IN_PROGRESS);
+        updateTransaction.setRequestTimestamp(Date.from(event.getUpdateTime().toInstant()));
+        updateTransaction.setCreateTimestamp(Date.from(Instant.now()));
+        updateTransaction.setLastUpdatedTimestamp(Date.from(Instant.now()));
 
         //save in DB
         updateTransactionRepository.save(updateTransaction);
@@ -49,42 +50,17 @@ public class ValidationTransactionServiceImpl implements ValidationTransactionSe
     }
 
     @Override
-    public void addValidationTransactionEntry(UUID updateTxId, UpdateEvent event, ProductType productType) {
-        UpdateValidationTransaction updateValidationTransaction = new UpdateValidationTransaction();
-        updateValidationTransaction.setUpdateTransactionId(updateTxId);
-        updateValidationTransaction.setSubTransactionId(UUID.randomUUID());
-        updateValidationTransaction.setProduct(productType);
-        updateValidationTransaction.setStatus(ValidationStatus.IN_PROGRESS);
-        updateValidationTransaction.setRequestTimestamp(Date.from(event.getUpdateTime().toInstant()));
-
-        //save in DB
-        validationTransactionRepository.save(updateValidationTransaction);
-        log.info("ValidationTxId={} updateId = {} saved in validation transaction DB", updateTxId, event.getRequestId());
-    }
-
-    @Override
-    public void updateTransactionEntry(UUID updateId, ValidationStatus validationStatus) {
+    public UpdateTransaction updateTransactionEntry(UUID updateId, UpdateStatus updateStatus) {
         Optional<UpdateTransaction> txOptional = updateTransactionRepository.findById(updateId);
         if (!txOptional.isPresent()) {
             throw new RepositoryException(ErrorCodes.UPDATE_TX_NOT_FOUND);
         }
         UpdateTransaction updateTransaction = txOptional.get();
-        updateTransaction.setStatus(validationStatus);
+        updateTransaction.setStatus(updateStatus);
+        updateTransaction.setLastUpdatedTimestamp(Date.from(Instant.now()));
 
         //update in db
-        updateTransactionRepository.save(updateTransaction);
+        return updateTransactionRepository.save(updateTransaction);
     }
 
-    @Override
-    public void updateValidationTransactionEntry(UUID updateTxId, ProductType productType, ValidationStatus validationStatus) {
-        UpdateValidationTransaction transaction = validationTransactionRepository.findByUpdateTransactionIdAndProduct(updateTxId, productType);
-        if (transaction == null) {
-            throw new RepositoryException(ErrorCodes.VALIDATION_TX_NOT_FOUND);
-        }
-        transaction.setStatus(validationStatus);
-        transaction.setResponseTimestamp(Date.from(ZonedDateTime.now().toInstant()));
-
-        //update validationStatus in db
-        validationTransactionRepository.save(transaction);
-    }
 }

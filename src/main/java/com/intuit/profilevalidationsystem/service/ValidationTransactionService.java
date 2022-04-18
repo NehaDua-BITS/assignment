@@ -1,20 +1,16 @@
 package com.intuit.profilevalidationsystem.service;
 
-import com.intuit.profilevalidationsystem.constants.ProductType;
-import com.intuit.profilevalidationsystem.constants.Status;
-import com.intuit.profilevalidationsystem.constants.ValidationStatus;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.intuit.profilevalidationsystem.constants.UpdateStatus;
 import com.intuit.profilevalidationsystem.kafka.UpdateEvent;
+import com.intuit.profilevalidationsystem.model.UpdateTransaction;
 
 import java.util.UUID;
 
 public interface ValidationTransactionService {
 
-    void addUpdateTransactionEntry(UUID profileId, UpdateEvent event);
+    void addUpdateTransactionEntry(UUID profileId, UpdateEvent event) throws JsonProcessingException;
 
-    void addValidationTransactionEntry(UUID updateTxId, UpdateEvent event, ProductType productType);
-
-    void updateTransactionEntry(UUID updateId, ValidationStatus validationStatus);
-
-    void updateValidationTransactionEntry(UUID updateTxId, ProductType productType, ValidationStatus validationStatus);
+    UpdateTransaction updateTransactionEntry(UUID updateId, UpdateStatus validationStatus);
 
 }

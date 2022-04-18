@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.slf4j.MDC;
 
-import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 import static com.intuit.profilevalidationsystem.constants.Properties.REQUEST_ID;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class Event {
@@ -18,12 +19,4 @@ public class Event {
 
     protected String requestId;
 
-    public Event() {
-        this(EventType.UPDATE_PROFILE);
-    }
-
-    public Event(EventType eventType) {
-        this.eventType = eventType;
-        this.requestId = MDC.get(REQUEST_ID);
-    }
 }

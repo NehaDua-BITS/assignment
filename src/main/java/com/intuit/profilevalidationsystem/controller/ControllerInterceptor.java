@@ -20,7 +20,7 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
     {
-        if(request.getRequestURL().indexOf("/profile") != -1) {
+        if(request.getRequestURL().indexOf("/api") != -1) {
             UUID trackingId = UUID.randomUUID();
             MDC.put(REQUEST_ID, trackingId.toString());
             log.info("Requested URL : {} ; Added tracking id in MDC : {}", request.getRequestURL(), trackingId);

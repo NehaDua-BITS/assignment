@@ -8,12 +8,8 @@ import java.util.UUID;
 
 public interface ValidationManager {
 
-    void consumeRequest(String requestMsg);
+    void processUpdateRequest(String requestMsg) throws Exception;
 
-    void consumeResponse(String responseMsg);
-
-    List<Subscription> getSubscriptions(UUID profileId, UpdateEvent event);
-
-    void requestValidationFromProducts(UUID profileId, UpdateEvent event, List<Subscription> subscriptions);
+    void requestValidationFromProducts(UpdateEvent event, List<Subscription> subscriptions) throws Exception;
 
 }

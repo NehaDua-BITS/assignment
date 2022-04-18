@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProductAPIConfig {
 
-    @Value("{product.base.url}")
+    @Value("${product.base.url}")
     private String url;
 
 }

@@ -3,8 +3,7 @@ package com.intuit.profilevalidationsystem.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.intuit.profilevalidationsystem.constants.Status;
-import com.intuit.profilevalidationsystem.constants.TaxIdentifierType;
-import com.intuit.profilevalidationsystem.exceptions.InvalidInputException;
+import com.intuit.profilevalidationsystem.exceptions.types.InvalidInputException;
 import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Getter

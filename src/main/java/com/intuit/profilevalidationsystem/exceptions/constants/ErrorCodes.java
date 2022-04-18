@@ -11,6 +11,8 @@ public enum ErrorCodes {
     INVALID_SUBSCRIPTION_FREQUENCY(400, "PV.4003", "Subscription frequency not supported"),
     ADDRESS_NULL(400, "PV.4004", "Address is null"),
     NO_SUBSCRIPTIONS_FOUND(400, "PV.4005", "No subscriptions found for given profile"),
+    NO_PROFILE_FOUND(400, "PV.4006", "No profile found for given id"),
+    NO_REQUEST_FOUND(400, "PV.4007", "No request found with given id"),
 
 
     //500 series
@@ -24,7 +26,11 @@ public enum ErrorCodes {
     //600 series for DB related
     VALIDATION_TX_NOT_FOUND(500, "PV.6001", "Validation transaction not found in db for given params"),
     UPDATE_TX_NOT_FOUND(500, "PV.6002", "Update transaction not found in db for given id"),
-    PROFILE_NOT_FOUND(500, "PV.6003", "Profile not found with given id : {}");
+
+    //700 series for 3rd party failures
+    VALIDATION_FAILURE(500, "PV.7001", "Validation failed for Product = %s due to Error = %s"),
+    EXTERNAL_API_CALL_FAILED(500, "PV.7002", "External API call failed : %s");
+
 
 
     private final String code;

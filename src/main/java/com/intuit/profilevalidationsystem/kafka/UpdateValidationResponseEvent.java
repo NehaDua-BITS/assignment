@@ -1,7 +1,7 @@
 package com.intuit.profilevalidationsystem.kafka;
 
 import com.intuit.profilevalidationsystem.constants.ProductType;
-import com.intuit.profilevalidationsystem.constants.ResponseType;
+import com.intuit.profilevalidationsystem.constants.ValidationResponse;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,6 +17,6 @@ public class UpdateValidationResponseEvent {
 
     private ProductType sender;
 
-    private ResponseType response;
+    private ValidationResponse response;
 
 }

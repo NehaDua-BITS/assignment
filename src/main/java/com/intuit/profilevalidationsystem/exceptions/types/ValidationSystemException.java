@@ -1,4 +1,4 @@
-package com.intuit.profilevalidationsystem.exceptions;
+package com.intuit.profilevalidationsystem.exceptions.types;
 
 import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
 import lombok.Getter;

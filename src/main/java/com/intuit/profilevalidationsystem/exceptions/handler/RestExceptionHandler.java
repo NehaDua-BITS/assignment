@@ -1,6 +1,7 @@
 package com.intuit.profilevalidationsystem.exceptions.handler;
 
-import com.intuit.profilevalidationsystem.exceptions.SubmitRequestException;
+import com.intuit.profilevalidationsystem.exceptions.types.InvalidInputException;
+import com.intuit.profilevalidationsystem.exceptions.types.SubmitRequestException;
 import com.intuit.profilevalidationsystem.exceptions.model.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class RestExceptionHandler
 {
-    @ExceptionHandler({SubmitRequestException.class})
+    @ExceptionHandler({SubmitRequestException.class, InvalidInputException.class})
     @ResponseBody
     public ResponseEntity<Object> processSubmitException(SubmitRequestException ex) {
         trackException(ex);

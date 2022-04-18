@@ -1,7 +1,7 @@
 package com.intuit.profilevalidationsystem.helper;
 
 import com.intuit.profilevalidationsystem.constants.SubscriptionFrequency;
-import com.intuit.profilevalidationsystem.exceptions.NotSupportedException;
+import com.intuit.profilevalidationsystem.exceptions.types.NotSupportedException;
 import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
 
 import java.sql.Date;

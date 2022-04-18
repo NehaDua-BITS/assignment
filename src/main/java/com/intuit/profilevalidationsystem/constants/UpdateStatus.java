@@ -1,9 +1,10 @@
 package com.intuit.profilevalidationsystem.constants;
 
-public enum ValidationStatus {
+public enum UpdateStatus {
         IN_PROGRESS,
         ACCEPTED,
         REJECTED,
-        EXPIRED,
-        TIMEOUT
+        TIMEOUT,
+        COMPLETED,
+        FAILED
 }

@@ -1,6 +1,6 @@
 package com.intuit.profilevalidationsystem.constants;
 
-public enum ResponseType {
+public enum ValidationResponse {
     ACCEPTED,
     REJECTED
 }

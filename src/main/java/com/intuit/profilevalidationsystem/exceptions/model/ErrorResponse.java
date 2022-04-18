@@ -1,14 +1,12 @@
 package com.intuit.profilevalidationsystem.exceptions.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ErrorResponse
 {
     private String errorCode;

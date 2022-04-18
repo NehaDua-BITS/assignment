@@ -1,7 +1,7 @@
 package com.intuit.profilevalidationsystem.helper;
 
 import com.intuit.profilevalidationsystem.dto.ProfileDTO;
-import com.intuit.profilevalidationsystem.exceptions.InvalidInputException;
+import com.intuit.profilevalidationsystem.exceptions.types.InvalidInputException;
 import com.intuit.profilevalidationsystem.exceptions.constants.ErrorCodes;
 import org.springframework.util.StringUtils;
 
