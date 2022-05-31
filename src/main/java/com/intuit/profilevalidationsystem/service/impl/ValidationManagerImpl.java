@@ -77,6 +77,9 @@ public class ValidationManagerImpl implements ValidationManager {
 
     @Override
     public void requestValidationFromProducts(UpdateEvent event, List<Subscription> subscriptions) throws Exception {
+
+        Thread.sleep(10000);
+
         int length = subscriptions.size();
         FutureTask[] futureTasks = new FutureTask[length];
         UpdateStatus[] statuses = new UpdateStatus[length];
